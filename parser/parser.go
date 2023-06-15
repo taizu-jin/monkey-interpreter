@@ -21,6 +21,7 @@ type Parser struct {
 	errors []string
 
 	prefixParseFns map[token.TokenType]prefixParseFn
+	infixParseFns  map[token.TokenType]infixParseFn
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -129,3 +130,6 @@ func (p *Parser) registerPrefix(tokentype token.TokenType, fn prefixParseFn) {
 	p.prefixParseFns[tokentype] = fn
 }
 
+func (p *Parser) registerInfix(tokentype token.TokenType, fn infixParseFn) {
+	p.infixParseFns[tokentype] = fn
+}

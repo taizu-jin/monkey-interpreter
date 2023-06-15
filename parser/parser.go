@@ -7,6 +7,11 @@ import (
 	"monkey-interpreter/token"
 )
 
+type (
+	prefixParseFn func() ast.Expression
+	infixParseFn  func(ast.Expression) ast.Expression
+)
+
 type Parser struct {
 	l *lexer.Lexer
 
@@ -14,6 +19,8 @@ type Parser struct {
 	peekToken token.Token
 
 	errors []string
+
+	prefixParseFns map[token.TokenType]prefixParseFn
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -117,3 +124,8 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 		return false
 	}
 }
+
+func (p *Parser) registerPrefix(tokentype token.TokenType, fn prefixParseFn) {
+	p.prefixParseFns[tokentype] = fn
+}
+

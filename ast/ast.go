@@ -67,6 +67,21 @@ func (rs *ReturnStatement) String() string {
 	return out.String()
 }
 
+type ExpressionStatement struct {
+	Token      token.Token // the 'return' token
+	Expression Expression
+}
+
+func (rs *ExpressionStatement) statementNode()       {}
+func (rs *ExpressionStatement) TokenLiteral() string { return rs.Token.Literal }
+
+func (es *ExpressionStatement) String() string {
+	if es.Expression != nil {
+		return es.Expression.String()
+	}
+	return ""
+}
+
 type Identifier struct {
 	Token token.Token // the token.IDENT token
 	Value string

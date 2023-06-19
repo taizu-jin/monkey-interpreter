@@ -15,10 +15,10 @@ func TestParsingPrefixExpressions(t *testing.T) {
 	}{
 		{"!5;", "!", 5},
 		{"-15;", "-", 15},
-		// {"!foobar;", "!", "foobar"},
-		// {"-foobar;", "-", "foobar"},
-		// {"!true;", "!", true},
-		// {"!false;", "!", false},
+		{"!foobar;", "!", "foobar"},
+		{"-foobar;", "-", "foobar"},
+		{"!true;", "!", true},
+		{"!false;", "!", false},
 	}
 
 	for _, tt := range prefixTests {
@@ -313,17 +313,17 @@ func TestParsingInfixExpressions(t *testing.T) {
 		{"5 < 5;", 5, "<", 5},
 		{"5 == 5;", 5, "==", 5},
 		{"5 != 5;", 5, "!=", 5},
-		// {"foobar + barfoo;", "foobar", "+", "barfoo"},
-		// {"foobar - barfoo;", "foobar", "-", "barfoo"},
-		// {"foobar * barfoo;", "foobar", "*", "barfoo"},
-		// {"foobar / barfoo;", "foobar", "/", "barfoo"},
-		// {"foobar > barfoo;", "foobar", ">", "barfoo"},
-		// {"foobar < barfoo;", "foobar", "<", "barfoo"},
-		// {"foobar == barfoo;", "foobar", "==", "barfoo"},
-		// {"foobar != barfoo;", "foobar", "!=", "barfoo"},
-		// {"true == true", true, "==", true},
-		// {"true != false", true, "!=", false},
-		// {"false == false", false, "==", false},
+		{"foobar + barfoo;", "foobar", "+", "barfoo"},
+		{"foobar - barfoo;", "foobar", "-", "barfoo"},
+		{"foobar * barfoo;", "foobar", "*", "barfoo"},
+		{"foobar / barfoo;", "foobar", "/", "barfoo"},
+		{"foobar > barfoo;", "foobar", ">", "barfoo"},
+		{"foobar < barfoo;", "foobar", "<", "barfoo"},
+		{"foobar == barfoo;", "foobar", "==", "barfoo"},
+		{"foobar != barfoo;", "foobar", "!=", "barfoo"},
+		{"true == true", true, "==", true},
+		{"true != false", true, "!=", false},
+		{"false == false", false, "==", false},
 	}
 
 	for _, tt := range infixTests {
@@ -403,58 +403,58 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 			"3 + 4 * 5 == 3 * 1 + 4 * 5",
 			"((3 + (4 * 5)) == ((3 * 1) + (4 * 5)))",
 		},
-		// {
-		// 	"true",
-		// 	"true",
-		// },
-		// {
-		// 	"false",
-		// 	"false",
-		// },
-		// {
-		// 	"3 > 5 == false",
-		// 	"((3 > 5) == false)",
-		// },
-		// {
-		// 	"3 < 5 == true",
-		// 	"((3 < 5) == true)",
-		// },
-		// {
-		// 	"1 + (2 + 3) + 4",
-		// 	"((1 + (2 + 3)) + 4)",
-		// },
-		// {
-		// 	"(5 + 5) * 2",
-		// 	"((5 + 5) * 2)",
-		// },
-		// {
-		// 	"2 / (5 + 5)",
-		// 	"(2 / (5 + 5))",
-		// },
-		// {
-		// 	"(5 + 5) * 2 * (5 + 5)",
-		// 	"(((5 + 5) * 2) * (5 + 5))",
-		// },
-		// {
-		// 	"-(5 + 5)",
-		// 	"(-(5 + 5))",
-		// },
-		// {
-		// 	"!(true == true)",
-		// 	"(!(true == true))",
-		// },
-		// {
-		// 	"a + add(b * c) + d",
-		// 	"((a + add((b * c))) + d)",
-		// },
-		// {
-		// 	"add(a, b, 1, 2 * 3, 4 + 5, add(6, 7 * 8))",
-		// 	"add(a, b, 1, (2 * 3), (4 + 5), add(6, (7 * 8)))",
-		// },
-		// {
-		// 	"add(a + b + c * d / f + g)",
-		// 	"add((((a + b) + ((c * d) / f)) + g))",
-		// },
+		{
+			"true",
+			"true",
+		},
+		{
+			"false",
+			"false",
+		},
+		{
+			"3 > 5 == false",
+			"((3 > 5) == false)",
+		},
+		{
+			"3 < 5 == true",
+			"((3 < 5) == true)",
+		},
+		{
+			"1 + (2 + 3) + 4",
+			"((1 + (2 + 3)) + 4)",
+		},
+		{
+			"(5 + 5) * 2",
+			"((5 + 5) * 2)",
+		},
+		{
+			"2 / (5 + 5)",
+			"(2 / (5 + 5))",
+		},
+		{
+			"(5 + 5) * 2 * (5 + 5)",
+			"(((5 + 5) * 2) * (5 + 5))",
+		},
+		{
+			"-(5 + 5)",
+			"(-(5 + 5))",
+		},
+		{
+			"!(true == true)",
+			"(!(true == true))",
+		},
+		{
+			"a + add(b * c) + d",
+			"((a + add((b * c))) + d)",
+		},
+		{
+			"add(a, b, 1, 2 * 3, 4 + 5, add(6, 7 * 8))",
+			"add(a, b, 1, (2 * 3), (4 + 5), add(6, (7 * 8)))",
+		},
+		{
+			"add(a + b + c * d / f + g)",
+			"add((((a + b) + ((c * d) / f)) + g))",
+		},
 	}
 
 	for _, tt := range tests {

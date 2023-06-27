@@ -349,7 +349,7 @@ func TestStringConcatenation(t *testing.T) {
 	}
 }
 
-func TestBuilinFunction(t *testing.T) {
+func TestBuiltinFunction(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected interface{}
